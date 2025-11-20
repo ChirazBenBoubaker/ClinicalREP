@@ -43,7 +43,6 @@
         <profile.api-docs />
         <profile.tls />
         <profile.e2e />
-        <sonar.organization>chirazbenboubaker</sonar.organization>
 
         <!-- Dependency versions -->
         <jhipster-dependencies.version>7.9.3</jhipster-dependencies.version>
