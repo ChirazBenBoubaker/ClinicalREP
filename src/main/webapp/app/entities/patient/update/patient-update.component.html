@@ -1,0 +1,131 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="itp-patient-heading" data-cy="PatientCreateUpdateHeading" itpTranslate="clinicalApp.patient.home.createOrEditLabel">
+        Create or edit a Patient
+      </h2>
+
+      <div>
+        <itp-alert-error></itp-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" itpTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.patientUID" for="field_patientUID">Patient UID</label>
+          <input
+            type="text"
+            class="form-control"
+            name="patientUID"
+            id="field_patientUID"
+            data-cy="patientUID"
+            formControlName="patientUID"
+          />
+          <div *ngIf="editForm.get('patientUID')!.invalid && (editForm.get('patientUID')!.dirty || editForm.get('patientUID')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('patientUID')?.errors?.required"
+              itpTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.nameFamily" for="field_nameFamily">Name Family</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nameFamily"
+            id="field_nameFamily"
+            data-cy="nameFamily"
+            formControlName="nameFamily"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.nameGiven" for="field_nameGiven">Name Given</label>
+          <input type="text" class="form-control" name="nameGiven" id="field_nameGiven" data-cy="nameGiven" formControlName="nameGiven" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.birthdate" for="field_birthdate">Birthdate</label>
+          <div class="input-group">
+            <input
+              id="field_birthdate"
+              data-cy="birthdate"
+              type="text"
+              class="form-control"
+              name="birthdate"
+              ngbDatepicker
+              #birthdateDp="ngbDatepicker"
+              formControlName="birthdate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="birthdateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.gender" for="field_gender">Gender</label>
+          <input type="text" class="form-control" name="gender" id="field_gender" data-cy="gender" formControlName="gender" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.contact" for="field_contact">Contact</label>
+          <input type="text" class="form-control" name="contact" id="field_contact" data-cy="contact" formControlName="contact" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.line" for="field_line">Line</label>
+          <input type="text" class="form-control" name="line" id="field_line" data-cy="line" formControlName="line" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.city" for="field_city">City</label>
+          <input type="text" class="form-control" name="city" id="field_city" data-cy="city" formControlName="city" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.country" for="field_country">Country</label>
+          <input type="text" class="form-control" name="country" id="field_country" data-cy="country" formControlName="country" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.state" for="field_state">State</label>
+          <input type="text" class="form-control" name="state" id="field_state" data-cy="state" formControlName="state" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.patient.postalcode" for="field_postalcode">Postalcode</label>
+          <input
+            type="text"
+            class="form-control"
+            name="postalcode"
+            id="field_postalcode"
+            data-cy="postalcode"
+            formControlName="postalcode"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span itpTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span itpTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

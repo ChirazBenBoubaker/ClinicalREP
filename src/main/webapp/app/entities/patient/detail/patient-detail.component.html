@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="patient">
+      <h2 data-cy="patientDetailsHeading"><span itpTranslate="clinicalApp.patient.detail.title">Patient</span></h2>
+
+      <hr />
+
+      <itp-alert-error></itp-alert-error>
+
+      <itp-alert></itp-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span itpTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ patient.id }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.patientUID">Patient UID</span></dt>
+        <dd>
+          <span>{{ patient.patientUID }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.nameFamily">Name Family</span></dt>
+        <dd>
+          <span>{{ patient.nameFamily }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.nameGiven">Name Given</span></dt>
+        <dd>
+          <span>{{ patient.nameGiven }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.birthdate">Birthdate</span></dt>
+        <dd>
+          <span>{{ patient.birthdate | formatMediumDate }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.gender">Gender</span></dt>
+        <dd>
+          <span>{{ patient.gender }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.contact">Contact</span></dt>
+        <dd>
+          <span>{{ patient.contact }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.line">Line</span></dt>
+        <dd>
+          <span>{{ patient.line }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.city">City</span></dt>
+        <dd>
+          <span>{{ patient.city }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.country">Country</span></dt>
+        <dd>
+          <span>{{ patient.country }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.state">State</span></dt>
+        <dd>
+          <span>{{ patient.state }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.patient.postalcode">Postalcode</span></dt>
+        <dd>
+          <span>{{ patient.postalcode }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span itpTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/patient', patient.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span itpTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

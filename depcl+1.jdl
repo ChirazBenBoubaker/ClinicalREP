@@ -1,0 +1,137 @@
+application { 
+ config {
+ applicationType monolith
+    baseName clinical
+    packageName com.jhipster.itprogress.pfe
+    authenticationType jwt
+    buildTool maven
+    cacheProvider ehcache
+    databaseType sql
+    devDatabaseType postgresql
+    prodDatabaseType postgresql
+    serverPort 8181
+    jhiPrefix itp
+    nativeLanguage fr
+    languages [fr]
+  }
+  entities *
+}
+
+entity Patient {
+    patientUID String required,
+    nameFamily String,
+    nameGiven String,
+    Birthdate LocalDate ,
+    gender String,
+    contact String,
+    line   String,
+    city String,
+    country  String,
+    state  String,
+    postalcode String
+}
+
+entity Encounter {
+    encountersText  String,
+    encounterLocation String,
+    encounterProvider String,
+    date LocalDate ,
+    patientUID String
+}
+
+
+
+entity Procedure {
+   procedureText String,
+   date LocalDate ,
+   patientUID String 
+}
+
+
+
+entity Immunization {
+    immunization String,
+    date LocalDate ,
+    patientUID String  
+}
+
+
+
+entity Medication {
+    medicationText String,
+    date LocalDate ,
+    patientUID String  
+}
+
+
+
+
+entity Condition {
+    conditionText String ,
+    conditionOnsetDates LocalDate ,
+    patientUID String       
+}
+
+
+
+
+entity Date {
+  date LocalDate,
+  year Integer,
+  month Integer,
+  day Integer
+}
+
+
+
+entity Observation {
+    bodyHeight Float,
+    bodyWeight Float,
+    bodyMass Float,
+    painseverity Float,
+    bloodPressure Float,
+    tobaccosmokingstatusNHIS Float,
+    creatinine Float,
+    calcium Float,
+    sodium Float,
+    potassium Float,
+    chloride Float,
+    carbonDioxide Float,
+    glucose Float,
+    ureaNitrogen Float
+    date LocalDate ,
+    patientUID String 
+}
+
+
+
+entity Factclinical {
+  PatientUID String,
+  EncounterID Integer,
+  ObservationID Integer,
+  ProcedureID Integer,
+  ImmunizationID Integer,
+  MedicationID Integer,
+  ConditionID Integer,
+  date LocalDate
+}
+
+
+
+
+// Set pagination options
+paginate all with pagination
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+filter *
+
+
+
+
+ 
+    

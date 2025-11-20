@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="procedure">
+      <h2 data-cy="procedureDetailsHeading"><span itpTranslate="clinicalApp.procedure.detail.title">Procedure</span></h2>
+
+      <hr />
+
+      <itp-alert-error></itp-alert-error>
+
+      <itp-alert></itp-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span itpTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ procedure.id }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.procedure.procedureText">Procedure Text</span></dt>
+        <dd>
+          <span>{{ procedure.procedureText }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.procedure.date">Date</span></dt>
+        <dd>
+          <span>{{ procedure.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.procedure.patientUID">Patient UID</span></dt>
+        <dd>
+          <span>{{ procedure.patientUID }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span itpTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/procedure', procedure.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span itpTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+{
+  "applications": ["clinical"],
+  "changelogDate": "20230512105809",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "observation",
+  "fields": [
+    {
+      "fieldName": "bodyHeight",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "bodyWeight",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "bodyMass",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "painseverity",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "bloodPressure",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "tobaccosmokingstatusNHIS",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "creatinine",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "calcium",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "sodium",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "potassium",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "chloride",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "carbonDioxide",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "glucose",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "ureaNitrogen",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientUID",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Observation",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

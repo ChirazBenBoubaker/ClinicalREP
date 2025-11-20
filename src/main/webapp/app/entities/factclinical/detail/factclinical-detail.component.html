@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="factclinical">
+      <h2 data-cy="factclinicalDetailsHeading"><span itpTranslate="clinicalApp.factclinical.detail.title">Factclinical</span></h2>
+
+      <hr />
+
+      <itp-alert-error></itp-alert-error>
+
+      <itp-alert></itp-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span itpTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ factclinical.id }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.factclinical.patientUID">Patient UID</span></dt>
+        <dd>
+          <span>{{ factclinical.patientUID }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.factclinical.encounterID">Encounter ID</span></dt>
+        <dd>
+          <span>{{ factclinical.encounterID }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.factclinical.observationID">Observation ID</span></dt>
+        <dd>
+          <span>{{ factclinical.observationID }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.factclinical.procedureID">Procedure ID</span></dt>
+        <dd>
+          <span>{{ factclinical.procedureID }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.factclinical.immunizationID">Immunization ID</span></dt>
+        <dd>
+          <span>{{ factclinical.immunizationID }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.factclinical.medicationID">Medication ID</span></dt>
+        <dd>
+          <span>{{ factclinical.medicationID }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.factclinical.conditionID">Condition ID</span></dt>
+        <dd>
+          <span>{{ factclinical.conditionID }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.factclinical.date">Date</span></dt>
+        <dd>
+          <span>{{ factclinical.date | formatMediumDate }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span itpTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/factclinical', factclinical.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span itpTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,256 @@
+<div>
+  <h2 id="page-heading" data-cy="FactclinicalHeading">
+    <span itpTranslate="clinicalApp.factclinical.home.title">Factclinicals</span>
+
+    <div style="margin-bottom: 15px; margin-left: 50px">
+      <div class="row">
+        <div class="col-3 mb-3">
+          <label class="form-label" style="font-size: 20px"  for="field_lastname">PatientUID</label>
+          <input
+            [(ngModel)]="factCriteria.patientUID"
+            (input)="onSearch($event)"
+            style="
+              width: 100%;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              font-size: 16px;
+              background-color: white;
+              background-image: url('/content/images/searchnew.png');
+              background-position: 10px 6px;
+              background-size: 22px;
+              background-repeat: no-repeat;
+              padding: 5px 20px 8px 50px;
+              transition: width 0.4s ease-in-out;
+            "
+            type="text"
+            class="form-control styleSearch"
+            name="lastname"
+            id="field_lastname"
+            data-cy="lastname"
+          />
+        </div>
+        <div class="col-3 mb-3">
+            <label class="form-label" style="font-size: 20px"  for="date">De</label>
+          <div class="input-group">
+            <input
+              [(ngModel)]="factCriteria.dateFact"
+              (input)="onSearch($event)"
+              style="
+              width: 100%;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              font-size: 16px;
+              background-color: white;
+              background-image: url('/content/images/searchnew.png');
+              background-position: 10px 6px;
+              background-size: 22px;
+              background-repeat: no-repeat;
+              padding: 5px 20px 8px 50px;
+              transition: width 0.4s ease-in-out;
+            "
+              type="date"
+              class="form-control styleSearch"
+              name="lastname"
+              id="date"
+              data-cy="lastname"
+            />
+          </div>
+        </div>
+
+        <div class="col-3 mb-3">
+          <label class="form-label" style="font-size: 20px"  for="date">A</label>
+          <div class="input-group">
+            <input
+              [(ngModel)]="factCriteria.dateFact2"
+              (input)="onSearch($event)"
+              style="
+              width: 100%;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              font-size: 16px;
+              background-color: white;
+              background-image: url('/content/images/searchnew.png');
+              background-position: 10px 6px;
+              background-size: 22px;
+              background-repeat: no-repeat;
+              padding: 5px 20px 8px 50px;
+              transition: width 0.4s ease-in-out;
+            "
+              type="date"
+              class="form-control styleSearch"
+              name="lastname"
+              id="date2"
+              data-cy="lastname"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span itpTranslate="clinicalApp.factclinical.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-factclinical"
+        [routerLink]="['/factclinical/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span itpTranslate="clinicalApp.factclinical.home.createLabel"> Create a new Factclinical </span>
+      </button>
+    </div>
+  </h2>
+
+  <itp-alert-error></itp-alert-error>
+
+  <itp-alert></itp-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="factclinicals?.length === 0">
+    <span itpTranslate="clinicalApp.factclinical.home.notFound">No Factclinicals found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="factclinicals && factclinicals.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr itpSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" itpSortBy="id">
+            <div class="d-flex">
+              <span itpTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="patientUID">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.factclinical.patientUID">Patient UID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="encounterID">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.factclinical.encounterID">Encounter ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="observationID">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.factclinical.observationID">Observation ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="procedureID">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.factclinical.procedureID">Procedure ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="immunizationID">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.factclinical.immunizationID">Immunization ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="medicationID">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.factclinical.medicationID">Medication ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="conditionID">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.factclinical.conditionID">Condition ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="date">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.factclinical.date">Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let factclinical of factclinicals; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/factclinical', factclinical.id, 'view']">{{ factclinical.id }}</a>
+          </td>
+          <td>{{ factclinical.patientUID }}</td>
+          <td>
+            <a [routerLink]="['/encounter', factclinical.encounterID, 'view']">
+              {{ factclinical.encounterID }}</a></td>
+          <td>
+            <a  [routerLink]="['/observation', factclinical.observationID, 'view']">
+            {{ factclinical.observationID }}</a></td>
+
+          <td>
+            <a [routerLink]="['/procedure', factclinical.procedureID, 'view']">
+              {{ factclinical.procedureID }}</a> </td>
+          <td>
+            <a [routerLink]="['/immunization', factclinical.immunizationID, 'view']">
+              {{ factclinical.immunizationID }}</a></td>
+          <td>
+            <a [routerLink]="['/medication', factclinical.medicationID, 'view']">
+              {{ factclinical.medicationID }}</a></td>
+          <td>
+            <a [routerLink]="['/condition', factclinical.conditionID, 'view']">
+              {{ factclinical.conditionID }}</a></td>
+          <td>{{ factclinical.date | formatMediumDate }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/factclinical', factclinical.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" itpTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/factclinical', factclinical.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" itpTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(factclinical)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" itpTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="factclinicals && factclinicals.length > 0">
+    <div class="d-flex justify-content-center">
+      <itp-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></itp-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="condition">
+      <h2 data-cy="conditionDetailsHeading"><span itpTranslate="clinicalApp.condition.detail.title">Condition</span></h2>
+
+      <hr />
+
+      <itp-alert-error></itp-alert-error>
+
+      <itp-alert></itp-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span itpTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ condition.id }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.condition.conditionText">Condition Text</span></dt>
+        <dd>
+          <span>{{ condition.conditionText }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.condition.conditionOnsetDates">Condition Onset Dates</span></dt>
+        <dd>
+          <span>{{ condition.conditionOnsetDates | formatMediumDate }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.condition.patientUID">Patient UID</span></dt>
+        <dd>
+          <span>{{ condition.patientUID }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span itpTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/condition', condition.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span itpTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

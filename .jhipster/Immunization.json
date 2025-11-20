@@ -1,0 +1,28 @@
+{
+  "applications": ["clinical"],
+  "changelogDate": "20230512105409",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "immunization",
+  "fields": [
+    {
+      "fieldName": "immunization",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientUID",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Immunization",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

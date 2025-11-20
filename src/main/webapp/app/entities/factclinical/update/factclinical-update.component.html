@@ -1,0 +1,141 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="itp-factclinical-heading"
+        data-cy="FactclinicalCreateUpdateHeading"
+        itpTranslate="clinicalApp.factclinical.home.createOrEditLabel"
+      >
+        Create or edit a Factclinical
+      </h2>
+
+      <div>
+        <itp-alert-error></itp-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" itpTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.factclinical.patientUID" for="field_patientUID">Patient UID</label>
+          <input
+            type="text"
+            class="form-control"
+            name="patientUID"
+            id="field_patientUID"
+            data-cy="patientUID"
+            formControlName="patientUID"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.factclinical.encounterID" for="field_encounterID">Encounter ID</label>
+          <input
+            type="number"
+            class="form-control"
+            name="encounterID"
+            id="field_encounterID"
+            data-cy="encounterID"
+            formControlName="encounterID"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.factclinical.observationID" for="field_observationID">Observation ID</label>
+          <input
+            type="number"
+            class="form-control"
+            name="observationID"
+            id="field_observationID"
+            data-cy="observationID"
+            formControlName="observationID"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.factclinical.procedureID" for="field_procedureID">Procedure ID</label>
+          <input
+            type="number"
+            class="form-control"
+            name="procedureID"
+            id="field_procedureID"
+            data-cy="procedureID"
+            formControlName="procedureID"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.factclinical.immunizationID" for="field_immunizationID"
+            >Immunization ID</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="immunizationID"
+            id="field_immunizationID"
+            data-cy="immunizationID"
+            formControlName="immunizationID"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.factclinical.medicationID" for="field_medicationID">Medication ID</label>
+          <input
+            type="number"
+            class="form-control"
+            name="medicationID"
+            id="field_medicationID"
+            data-cy="medicationID"
+            formControlName="medicationID"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.factclinical.conditionID" for="field_conditionID">Condition ID</label>
+          <input
+            type="number"
+            class="form-control"
+            name="conditionID"
+            id="field_conditionID"
+            data-cy="conditionID"
+            formControlName="conditionID"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.factclinical.date" for="field_date">Date</label>
+          <div class="input-group">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="text"
+              class="form-control"
+              name="date"
+              ngbDatepicker
+              #dateDp="ngbDatepicker"
+              formControlName="date"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span itpTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span itpTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="itp-immunization-heading"
+        data-cy="ImmunizationCreateUpdateHeading"
+        itpTranslate="clinicalApp.immunization.home.createOrEditLabel"
+      >
+        Create or edit a Immunization
+      </h2>
+
+      <div>
+        <itp-alert-error></itp-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" itpTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.immunization.immunization" for="field_immunization">Immunization</label>
+          <input
+            type="text"
+            class="form-control"
+            name="immunization"
+            id="field_immunization"
+            data-cy="immunization"
+            formControlName="immunization"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.immunization.date" for="field_date">Date</label>
+          <div class="input-group">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="text"
+              class="form-control"
+              name="date"
+              ngbDatepicker
+              #dateDp="ngbDatepicker"
+              formControlName="date"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.immunization.patientUID" for="field_patientUID">Patient UID</label>
+          <input
+            type="text"
+            class="form-control"
+            name="patientUID"
+            id="field_patientUID"
+            data-cy="patientUID"
+            formControlName="patientUID"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span itpTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span itpTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

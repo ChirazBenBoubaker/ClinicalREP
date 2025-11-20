@@ -1,0 +1,36 @@
+{
+  "applications": ["clinical"],
+  "changelogDate": "20230512105209",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "encounter",
+  "fields": [
+    {
+      "fieldName": "encountersText",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "encounterLocation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "encounterProvider",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientUID",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Encounter",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

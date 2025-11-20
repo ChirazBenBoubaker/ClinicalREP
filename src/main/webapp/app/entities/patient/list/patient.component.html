@@ -1,0 +1,285 @@
+<div>
+  <h2 id="page-heading" data-cy="PatientHeading">
+    <span itpTranslate="clinicalApp.patient.home.title">Patients</span>
+
+    <div style="margin-bottom: 15px; margin-left: 50px">
+      <div class="row">
+        <div class="col-3 mb-3">
+          <label class="form-label" style="font-size: 20px" laboTranslate="laboApp.patient.lastname" for="field_lastname">NameGiven</label>
+          <input
+            [(ngModel)]="patientCriteria.lastname"
+            (input)="onSearch($event)"
+            style="
+              width: 100%;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              font-size: 16px;
+              background-color: white;
+              background-image: url('/content/images/searchnew.png');
+              background-position: 10px 6px;
+              background-size: 22px;
+              background-repeat: no-repeat;
+              padding: 5px 20px 8px 50px;
+              transition: width 0.4s ease-in-out;
+            "
+            type="text"
+            class="form-control styleSearch"
+            name="lastname"
+            id="field_lastname"
+            data-cy="lastname"
+          />
+        </div>
+        <div class="col-3 mb-3">
+          <label class="form-label" style="font-size: 20px" laboTranslate="laboApp.patient.firstname" for="field_firstname">Family Name</label>
+          <input
+            [(ngModel)]="patientCriteria.firstname"
+            (input)="onSearch($event)"
+            style="
+              width: 100%;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              font-size: 16px;
+              background-color: white;
+              background-image: url('/content/images/searchnew.png');
+              background-position: 10px 6px;
+              background-size: 22px;
+              background-repeat: no-repeat;
+              padding: 5px 20px 8px 50px;
+              transition: width 0.4s ease-in-out;
+            "
+            type="text"
+            class="form-control styleSearch"
+            name="firstname"
+            id="field_firstname"
+            data-cy="firstname"
+          />
+        </div>
+        <div class="col-3 mb-3">
+          <label class="form-label" style="font-size: 20px"  for="field_firstname">Gender</label>
+          <input
+            [(ngModel)]="patientCriteria.gender"
+            (input)="onSearch($event)"
+            style="
+              width: 100%;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              font-size: 16px;
+              background-color: white;
+              background-image: url('/content/images/searchnew.png');
+              background-position: 10px 6px;
+              background-size: 22px;
+              background-repeat: no-repeat;
+              padding: 5px 20px 8px 50px;
+              transition: width 0.4s ease-in-out;
+            "
+            type="text"
+            class="form-control styleSearch"
+            name="gender"
+            id="field_gender"
+            data-cy="gender"
+          />
+        </div>
+        <div class="col-3 mb-3">
+          <label class="form-label" style="font-size: 20px"  for="field_firstname">Birthdate</label>
+          <input
+            [(ngModel)]="patientCriteria.birthdate"
+            (input)="onSearch($event)"
+            style="
+              width: 100%;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              font-size: 16px;
+              background-color: white;
+              background-image: url('/content/images/searchnew.png');
+              background-position: 10px 6px;
+              background-size: 22px;
+              background-repeat: no-repeat;
+              padding: 5px 20px 8px 50px;
+              transition: width 0.4s ease-in-out;
+            "
+            type="date"
+            class="form-control styleSearch"
+            name="gender"
+            id="field_birhdate"
+            data-cy="gender"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span itpTranslate="clinicalApp.patient.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-patient"
+        [routerLink]="['/patient/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span itpTranslate="clinicalApp.patient.home.createLabel"> Create a new Patient </span>
+      </button>
+    </div>
+  </h2>
+
+  <itp-alert-error></itp-alert-error>
+
+  <itp-alert></itp-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="patients?.length === 0">
+    <span itpTranslate="clinicalApp.patient.home.notFound">No Patients found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="patients && patients.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr itpSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" itpSortBy="id">
+            <div class="d-flex">
+              <span itpTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="patientUID">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.patientUID">Patient UID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="nameFamily">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.nameFamily">Name Family</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="nameGiven">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.nameGiven">Name Given</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="birthdate">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.birthdate">Birthdate</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="gender">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.gender">Gender</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="contact">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.contact">Contact</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="line">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.line">Line</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="city">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.city">City</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="country">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.country">Country</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="state">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.state">State</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="postalcode">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.patient.postalcode">Postalcode</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patients; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/patient', patient.id, 'view']">{{ patient.id }}</a>
+          </td>
+          <td>{{ patient.patientUID }}</td>
+          <td>{{ patient.nameFamily }}</td>
+          <td>{{ patient.nameGiven }}</td>
+          <td>{{ patient.birthdate | formatMediumDate }}</td>
+          <td>{{ patient.gender }}</td>
+          <td>{{ patient.contact }}</td>
+          <td>{{ patient.line }}</td>
+          <td>{{ patient.city }}</td>
+          <td>{{ patient.country }}</td>
+          <td>{{ patient.state }}</td>
+          <td>{{ patient.postalcode }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/patient', patient.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" itpTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/patient', patient.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" itpTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(patient)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" itpTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="patients && patients.length > 0">
+    <div class="d-flex justify-content-center">
+      <itp-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></itp-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

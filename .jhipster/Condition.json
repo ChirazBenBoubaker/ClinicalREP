@@ -1,0 +1,28 @@
+{
+  "applications": ["clinical"],
+  "changelogDate": "20230512105609",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "condition",
+  "fields": [
+    {
+      "fieldName": "conditionText",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "conditionOnsetDates",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientUID",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Condition",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

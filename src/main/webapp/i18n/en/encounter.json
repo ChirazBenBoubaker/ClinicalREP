@@ -1,0 +1,28 @@
+{
+  "clinicalApp": {
+    "encounter": {
+      "home": {
+        "title": "Encounters",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Encounter",
+        "createOrEditLabel": "Create or edit a Encounter",
+        "notFound": "No Encounters found"
+      },
+      "created": "A new Encounter is created with identifier {{ param }}",
+      "updated": "A Encounter is updated with identifier {{ param }}",
+      "deleted": "A Encounter is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Encounter {{ id }}?"
+      },
+      "detail": {
+        "title": "Encounter"
+      },
+      "id": "ID",
+      "encountersText": "Encounters Text",
+      "encounterLocation": "Encounter Location",
+      "encounterProvider": "Encounter Provider",
+      "date": "Date",
+      "patientUID": "Patient UID"
+    }
+  }
+}

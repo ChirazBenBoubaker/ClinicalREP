@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="immunization">
+      <h2 data-cy="immunizationDetailsHeading"><span itpTranslate="clinicalApp.immunization.detail.title">Immunization</span></h2>
+
+      <hr />
+
+      <itp-alert-error></itp-alert-error>
+
+      <itp-alert></itp-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span itpTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ immunization.id }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.immunization.immunization">Immunization</span></dt>
+        <dd>
+          <span>{{ immunization.immunization }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.immunization.date">Date</span></dt>
+        <dd>
+          <span>{{ immunization.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.immunization.patientUID">Patient UID</span></dt>
+        <dd>
+          <span>{{ immunization.patientUID }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span itpTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/immunization', immunization.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span itpTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

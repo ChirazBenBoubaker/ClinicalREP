@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="date">
+      <h2 data-cy="dateDetailsHeading"><span itpTranslate="clinicalApp.date.detail.title">Date</span></h2>
+
+      <hr />
+
+      <itp-alert-error></itp-alert-error>
+
+      <itp-alert></itp-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span itpTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ date.id }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.date.date">Date</span></dt>
+        <dd>
+          <span>{{ date.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.date.year">Year</span></dt>
+        <dd>
+          <span>{{ date.year }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.date.month">Month</span></dt>
+        <dd>
+          <span>{{ date.month }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.date.day">Day</span></dt>
+        <dd>
+          <span>{{ date.day }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span itpTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/date', date.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span itpTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

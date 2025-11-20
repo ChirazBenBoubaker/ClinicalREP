@@ -1,0 +1,225 @@
+application {
+ config {
+    applicationType monolith
+    baseName labo
+    packageName com.itprogress.labo
+    authenticationType jwt
+    buildTool maven
+    cacheProvider ehcache
+    databaseType sql
+    devDatabaseType postgresql
+    prodDatabaseType postgresql
+    serverPort 8181
+    jhiPrefix labo
+    nativeLanguage fr
+    languages [fr]
+
+  }
+  entities *
+}
+
+enum TypeRecord {
+    HISTOLOGIE, CYTOLOGIE, FCU
+}
+
+enum StateRecord {
+    INPROGRESS, TREATY
+}
+
+enum PreleveType {
+  Exocol, Endocol, Vagin, Endometre
+}
+enum StatType {
+   Menopausee, Contraception, THS
+}
+enum Recieve {
+   Medecin, Patient
+}
+
+entity Record {
+	code String
+	organe String
+	usage Integer
+	nature String
+	payedAmount Integer
+	facture Float
+	matricule String
+	date LocalDate required
+    dateReceived LocalDate required
+    type TypeRecord
+	status Boolean
+	state StateRecord
+	dropped Boolean
+	codeHysto String unique
+	codeFcu String unique
+	codeCyto String unique
+	recieve Recieve
+	parent String
+}
+
+entity Patient {
+    lastname String required
+    firstname String required
+    phone String
+    phone2 String
+    email String pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
+	age Integer
+	sex String
+	dateNaissance LocalDate
+}
+
+entity Doctor {
+    lastname String required
+    firstname String required
+    phone String required
+    email String pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
+}
+
+entity Medecin {
+    lastname String required
+    firstname String required
+    phone String
+    phone2 String
+    email String pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
+    favorie Boolean
+}
+
+entity Establishment {
+    code String required
+    label String required
+}
+
+entity Labo {
+    code String required
+    label String required
+}
+
+entity Agreement {
+    code String required
+    label String required
+}
+
+entity Organ {
+    code String required
+    label String required
+}
+
+enum TypeOrgan {
+    HISTOLOGIE, CYTOLOGIE, FCU
+}
+
+entity BlockOrgan {
+    code String required
+    label String required
+	content String
+	typeorgan TypeOrgan
+}
+
+entity Report {
+	code String
+    label String
+	content String
+	sousLabel String
+	conclusion String
+	qualityPreleve String
+	preleve PreleveType
+	technique String
+	nbreType Integer
+	coloration String
+	stat StatType
+	type String
+	favoris Boolean
+	organ String
+	typeReport String
+	validate Boolean
+	date String
+	principal String unique
+    complementaire String unique
+    agent String
+
+
+}
+
+entity JoinedMedecinRecord{
+   status String
+}
+
+entity ReportType {
+    label String
+	content String
+	sousLabel String
+	conclusion String
+	type String
+	recommendation String
+}
+
+entity Communication {
+	date LocalDate required
+    phone String required
+	observation String
+}
+
+entity Remarks {
+	date LocalDate
+    Title String
+	content String
+}
+
+enum Payer {
+    PATIENT, LABO, CLINIQUE
+}
+
+entity Payment {
+  date LocalDate required
+  amount Float required
+  payer Payer
+  observation String
+  nbRecu String
+}
+
+entity Facture {
+  nature String
+  code String
+  prix Float
+}
+
+entity Cotation {
+  name String
+  cot String
+  code Float
+  price Float
+}
+
+relationship ManyToMany {
+   Organ{blockOrgan} to BlockOrgan{organ}
+   Record{medecin} to Medecin{record}
+   Record{report} to Report{record}
+   Record{reportType} to ReportType{record}
+}
+
+relationship OneToMany {
+  Patient{record} to Record
+  Medecin{jointMedecin} to JoinedMedecinRecord
+  Record{jointRecord} to JoinedMedecinRecord
+  Doctor{record} to Record
+  Establishment{record} to Record
+  Labo{record} to Record
+  Agreement{record} to Record
+  Communication{record} to Record
+  Record{record} to Payment
+  Record{recordFact} to Facture
+  Facture{cotation} to Cotation
+  Record{recordRemarks} to Remarks
+}
+
+
+// Set pagination options
+paginate all with pagination
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+filter *

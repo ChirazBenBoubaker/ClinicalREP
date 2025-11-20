@@ -1,0 +1,28 @@
+{
+  "applications": ["clinical"],
+  "changelogDate": "20230512105309",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "procedure",
+  "fields": [
+    {
+      "fieldName": "procedureText",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "patientUID",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Procedure",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,211 @@
+<div>
+  <h2 id="page-heading" data-cy="ObservationHeading">
+    <span itpTranslate="clinicalApp.observation.home.title">Observations</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span itpTranslate="clinicalApp.observation.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-observation"
+        [routerLink]="['/observation/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span itpTranslate="clinicalApp.observation.home.createLabel"> Create a new Observation </span>
+      </button>
+    </div>
+  </h2>
+
+  <itp-alert-error></itp-alert-error>
+
+  <itp-alert></itp-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="observations?.length === 0">
+    <span itpTranslate="clinicalApp.observation.home.notFound">No Observations found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="observations && observations.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr itpSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" itpSortBy="id">
+            <div class="d-flex">
+              <span itpTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="bodyHeight">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.bodyHeight">Body Height</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="bodyWeight">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.bodyWeight">Body Weight</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="bodyMass">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.bodyMass">Body Mass</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="painseverity">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.painseverity">Painseverity</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="bloodPressure">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.bloodPressure">Blood Pressure</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="tobaccosmokingstatusNHIS">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.tobaccosmokingstatusNHIS">Tobaccosmokingstatus NHIS</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="creatinine">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.creatinine">Creatinine</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="calcium">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.calcium">Calcium</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="sodium">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.sodium">Sodium</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="potassium">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.potassium">Potassium</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="chloride">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.chloride">Chloride</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="carbonDioxide">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.carbonDioxide">Carbon Dioxide</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="glucose">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.glucose">Glucose</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="ureaNitrogen">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.ureaNitrogen">Urea Nitrogen</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="date">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.date">Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" itpSortBy="patientUID">
+            <div class="d-flex">
+              <span itpTranslate="clinicalApp.observation.patientUID">Patient UID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let observation of observations; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/observation', observation.id, 'view']">{{ observation.id }}</a>
+          </td>
+          <td>{{ observation.bodyHeight }}</td>
+          <td>{{ observation.bodyWeight }}</td>
+          <td>{{ observation.bodyMass }}</td>
+          <td>{{ observation.painseverity }}</td>
+          <td>{{ observation.bloodPressure }}</td>
+          <td>{{ observation.tobaccosmokingstatusNHIS }}</td>
+          <td>{{ observation.creatinine }}</td>
+          <td>{{ observation.calcium }}</td>
+          <td>{{ observation.sodium }}</td>
+          <td>{{ observation.potassium }}</td>
+          <td>{{ observation.chloride }}</td>
+          <td>{{ observation.carbonDioxide }}</td>
+          <td>{{ observation.glucose }}</td>
+          <td>{{ observation.ureaNitrogen }}</td>
+          <td>{{ observation.date | formatMediumDate }}</td>
+          <td>{{ observation.patientUID }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/observation', observation.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" itpTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/observation', observation.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" itpTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(observation)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" itpTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="observations && observations.length > 0">
+    <div class="d-flex justify-content-center">
+      <itp-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></itp-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

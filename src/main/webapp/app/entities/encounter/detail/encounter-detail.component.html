@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="encounter">
+      <h2 data-cy="encounterDetailsHeading"><span itpTranslate="clinicalApp.encounter.detail.title">Encounter</span></h2>
+
+      <hr />
+
+      <itp-alert-error></itp-alert-error>
+
+      <itp-alert></itp-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span itpTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ encounter.id }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.encounter.encountersText">Encounters Text</span></dt>
+        <dd>
+          <span>{{ encounter.encountersText }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.encounter.encounterLocation">Encounter Location</span></dt>
+        <dd>
+          <span>{{ encounter.encounterLocation }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.encounter.encounterProvider">Encounter Provider</span></dt>
+        <dd>
+          <span>{{ encounter.encounterProvider }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.encounter.date">Date</span></dt>
+        <dd>
+          <span>{{ encounter.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.encounter.patientUID">Patient UID</span></dt>
+        <dd>
+          <span>{{ encounter.patientUID }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span itpTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/encounter', encounter.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span itpTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

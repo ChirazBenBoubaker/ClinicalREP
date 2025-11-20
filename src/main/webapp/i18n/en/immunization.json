@@ -1,0 +1,26 @@
+{
+  "clinicalApp": {
+    "immunization": {
+      "home": {
+        "title": "Immunizations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Immunization",
+        "createOrEditLabel": "Create or edit a Immunization",
+        "notFound": "No Immunizations found"
+      },
+      "created": "A new Immunization is created with identifier {{ param }}",
+      "updated": "A Immunization is updated with identifier {{ param }}",
+      "deleted": "A Immunization is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Immunization {{ id }}?"
+      },
+      "detail": {
+        "title": "Immunization"
+      },
+      "id": "ID",
+      "immunization": "Immunization",
+      "date": "Date",
+      "patientUID": "Patient UID"
+    }
+  }
+}

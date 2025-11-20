@@ -1,0 +1,48 @@
+{
+  "applications": ["clinical"],
+  "changelogDate": "20230512105909",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "factclinical",
+  "fields": [
+    {
+      "fieldName": "patientUID",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "encounterID",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "observationID",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "procedureID",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "immunizationID",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "medicationID",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "conditionID",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Factclinical",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

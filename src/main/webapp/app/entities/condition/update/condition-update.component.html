@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="itp-condition-heading" data-cy="ConditionCreateUpdateHeading" itpTranslate="clinicalApp.condition.home.createOrEditLabel">
+        Create or edit a Condition
+      </h2>
+
+      <div>
+        <itp-alert-error></itp-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" itpTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.condition.conditionText" for="field_conditionText">Condition Text</label>
+          <input
+            type="text"
+            class="form-control"
+            name="conditionText"
+            id="field_conditionText"
+            data-cy="conditionText"
+            formControlName="conditionText"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.condition.conditionOnsetDates" for="field_conditionOnsetDates"
+            >Condition Onset Dates</label
+          >
+          <div class="input-group">
+            <input
+              id="field_conditionOnsetDates"
+              data-cy="conditionOnsetDates"
+              type="text"
+              class="form-control"
+              name="conditionOnsetDates"
+              ngbDatepicker
+              #conditionOnsetDatesDp="ngbDatepicker"
+              formControlName="conditionOnsetDates"
+            />
+            <button type="button" class="btn btn-secondary" (click)="conditionOnsetDatesDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.condition.patientUID" for="field_patientUID">Patient UID</label>
+          <input
+            type="text"
+            class="form-control"
+            name="patientUID"
+            id="field_patientUID"
+            data-cy="patientUID"
+            formControlName="patientUID"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span itpTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span itpTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

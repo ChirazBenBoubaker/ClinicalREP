@@ -1,0 +1,92 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="observation">
+      <h2 data-cy="observationDetailsHeading"><span itpTranslate="clinicalApp.observation.detail.title">Observation</span></h2>
+
+      <hr />
+
+      <itp-alert-error></itp-alert-error>
+
+      <itp-alert></itp-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span itpTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ observation.id }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.bodyHeight">Body Height</span></dt>
+        <dd>
+          <span>{{ observation.bodyHeight }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.bodyWeight">Body Weight</span></dt>
+        <dd>
+          <span>{{ observation.bodyWeight }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.bodyMass">Body Mass</span></dt>
+        <dd>
+          <span>{{ observation.bodyMass }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.painseverity">Painseverity</span></dt>
+        <dd>
+          <span>{{ observation.painseverity }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.bloodPressure">Blood Pressure</span></dt>
+        <dd>
+          <span>{{ observation.bloodPressure }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.tobaccosmokingstatusNHIS">Tobaccosmokingstatus NHIS</span></dt>
+        <dd>
+          <span>{{ observation.tobaccosmokingstatusNHIS }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.creatinine">Creatinine</span></dt>
+        <dd>
+          <span>{{ observation.creatinine }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.calcium">Calcium</span></dt>
+        <dd>
+          <span>{{ observation.calcium }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.sodium">Sodium</span></dt>
+        <dd>
+          <span>{{ observation.sodium }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.potassium">Potassium</span></dt>
+        <dd>
+          <span>{{ observation.potassium }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.chloride">Chloride</span></dt>
+        <dd>
+          <span>{{ observation.chloride }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.carbonDioxide">Carbon Dioxide</span></dt>
+        <dd>
+          <span>{{ observation.carbonDioxide }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.glucose">Glucose</span></dt>
+        <dd>
+          <span>{{ observation.glucose }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.ureaNitrogen">Urea Nitrogen</span></dt>
+        <dd>
+          <span>{{ observation.ureaNitrogen }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.date">Date</span></dt>
+        <dd>
+          <span>{{ observation.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span itpTranslate="clinicalApp.observation.patientUID">Patient UID</span></dt>
+        <dd>
+          <span>{{ observation.patientUID }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span itpTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/observation', observation.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span itpTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

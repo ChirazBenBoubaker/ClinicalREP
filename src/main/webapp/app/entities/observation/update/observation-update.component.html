@@ -1,0 +1,195 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="itp-observation-heading"
+        data-cy="ObservationCreateUpdateHeading"
+        itpTranslate="clinicalApp.observation.home.createOrEditLabel"
+      >
+        Create or edit a Observation
+      </h2>
+
+      <div>
+        <itp-alert-error></itp-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" itpTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.bodyHeight" for="field_bodyHeight">Body Height</label>
+          <input
+            type="number"
+            class="form-control"
+            name="bodyHeight"
+            id="field_bodyHeight"
+            data-cy="bodyHeight"
+            formControlName="bodyHeight"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.bodyWeight" for="field_bodyWeight">Body Weight</label>
+          <input
+            type="number"
+            class="form-control"
+            name="bodyWeight"
+            id="field_bodyWeight"
+            data-cy="bodyWeight"
+            formControlName="bodyWeight"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.bodyMass" for="field_bodyMass">Body Mass</label>
+          <input type="number" class="form-control" name="bodyMass" id="field_bodyMass" data-cy="bodyMass" formControlName="bodyMass" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.painseverity" for="field_painseverity">Painseverity</label>
+          <input
+            type="number"
+            class="form-control"
+            name="painseverity"
+            id="field_painseverity"
+            data-cy="painseverity"
+            formControlName="painseverity"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.bloodPressure" for="field_bloodPressure">Blood Pressure</label>
+          <input
+            type="number"
+            class="form-control"
+            name="bloodPressure"
+            id="field_bloodPressure"
+            data-cy="bloodPressure"
+            formControlName="bloodPressure"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.tobaccosmokingstatusNHIS" for="field_tobaccosmokingstatusNHIS"
+            >Tobaccosmokingstatus NHIS</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="tobaccosmokingstatusNHIS"
+            id="field_tobaccosmokingstatusNHIS"
+            data-cy="tobaccosmokingstatusNHIS"
+            formControlName="tobaccosmokingstatusNHIS"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.creatinine" for="field_creatinine">Creatinine</label>
+          <input
+            type="number"
+            class="form-control"
+            name="creatinine"
+            id="field_creatinine"
+            data-cy="creatinine"
+            formControlName="creatinine"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.calcium" for="field_calcium">Calcium</label>
+          <input type="number" class="form-control" name="calcium" id="field_calcium" data-cy="calcium" formControlName="calcium" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.sodium" for="field_sodium">Sodium</label>
+          <input type="number" class="form-control" name="sodium" id="field_sodium" data-cy="sodium" formControlName="sodium" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.potassium" for="field_potassium">Potassium</label>
+          <input type="number" class="form-control" name="potassium" id="field_potassium" data-cy="potassium" formControlName="potassium" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.chloride" for="field_chloride">Chloride</label>
+          <input type="number" class="form-control" name="chloride" id="field_chloride" data-cy="chloride" formControlName="chloride" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.carbonDioxide" for="field_carbonDioxide">Carbon Dioxide</label>
+          <input
+            type="number"
+            class="form-control"
+            name="carbonDioxide"
+            id="field_carbonDioxide"
+            data-cy="carbonDioxide"
+            formControlName="carbonDioxide"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.glucose" for="field_glucose">Glucose</label>
+          <input type="number" class="form-control" name="glucose" id="field_glucose" data-cy="glucose" formControlName="glucose" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.ureaNitrogen" for="field_ureaNitrogen">Urea Nitrogen</label>
+          <input
+            type="number"
+            class="form-control"
+            name="ureaNitrogen"
+            id="field_ureaNitrogen"
+            data-cy="ureaNitrogen"
+            formControlName="ureaNitrogen"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.date" for="field_date">Date</label>
+          <div class="input-group">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="text"
+              class="form-control"
+              name="date"
+              ngbDatepicker
+              #dateDp="ngbDatepicker"
+              formControlName="date"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" itpTranslate="clinicalApp.observation.patientUID" for="field_patientUID">Patient UID</label>
+          <input
+            type="text"
+            class="form-control"
+            name="patientUID"
+            id="field_patientUID"
+            data-cy="patientUID"
+            formControlName="patientUID"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span itpTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span itpTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
