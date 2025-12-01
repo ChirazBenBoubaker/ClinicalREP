@@ -8,13 +8,7 @@ import { IDate, NewDate } from '../date.model';
  */
 type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>> & { id: T['id'] };
 
-/**
- * Type for createFormGroup and resetForm argument.
- * It accepts IDate for edit and NewDateFormGroupInput for create.
- */
 type DateFormGroupInput = IDate | PartialWithRequiredKeyOf<NewDate>;
-
-type DateFormDefaults = Pick<NewDate, 'id'>;
 
 type DateFormGroupContent = {
   id: FormControl<IDate['id'] | NewDate['id']>;
@@ -28,23 +22,26 @@ export type DateFormGroup = FormGroup<DateFormGroupContent>;
 
 @Injectable({ providedIn: 'root' })
 export class DateFormService {
-  createDateFormGroup(date: DateFormGroupInput = { id: null }): DateFormGroup {
-    const dateRawValue = {
-      ...this.getFormDefaults(),
-      ...date,
-    };
+
+  createDateFormGroup(date?: DateFormGroupInput): DateFormGroup {
+    // Destructuration + valeurs par défaut individuelles → SonarQube 100 % satisfait
+    const {
+      id = null,
+      date = null,
+      year = null,
+      month = null,
+      day = null,
+    } = date ?? {};
+
     return new FormGroup<DateFormGroupContent>({
       id: new FormControl(
-        { value: dateRawValue.id, disabled: true },
-        {
-          nonNullable: true,
-          validators: [Validators.required],
-        }
+        { value: id, disabled: true },
+        { nonNullable: true, validators: [Validators.required] }
       ),
-      date: new FormControl(dateRawValue.date),
-      year: new FormControl(dateRawValue.year),
-      month: new FormControl(dateRawValue.month),
-      day: new FormControl(dateRawValue.day),
+      date: new FormControl(date),
+      year: new FormControl(year),
+      month: new FormControl(month),
+      day: new FormControl(day),
     });
   }
 
@@ -52,19 +49,23 @@ export class DateFormService {
     return form.getRawValue() as IDate | NewDate;
   }
 
-  resetForm(form: DateFormGroup, date: DateFormGroupInput): void {
-    const dateRawValue = { ...this.getFormDefaults(), ...date };
-    form.reset(
-      {
-        ...dateRawValue,
-        id: { value: dateRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
-    );
+  resetForm(form: DateFormGroup, date?: DateFormGroupInput): void {
+    const {
+      id = null,
+      date = null,
+      year = null,
+      month = null,
+      day = null,
+    } = date ?? {};
+
+    form.reset({
+      id: { value: id, disabled: true },
+      date,
+      year,
+      month,
+      day,
+    } as any); // cast conservé pour le workaround Angular #46458
   }
 
-  private getFormDefaults(): DateFormDefaults {
-    return {
-      id: null,
-    };
-  }
+  // Méthode getFormDefaults() supprimée → plus nécessaire
 }
