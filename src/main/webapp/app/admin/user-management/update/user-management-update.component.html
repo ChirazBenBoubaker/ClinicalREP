@@ -1,15 +1,15 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="myUserLabel" jhiTranslate="userManagement.home.createOrEditLabel">
+      <h2 id="myUserLabel" itpTranslate="userManagement.home.createOrEditLabel">
         Create or edit a user
       </h2>
 
-      <jhi-alert-error></jhi-alert-error>
+      <itp-alert-error></itp-alert-error>
 
-      <!-- ID (visible uniquement en édition) -->
-      <div class="mb-3" [hidden]="!editForm.get('id')?.value">
-        <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
+      <!-- ID -->
+      <div class="mb-3" [hidden]="!editForm.value.id">
+        <label class="form-label" for="field_id" itpTranslate="global.field.id">ID</label>
         <input
           type="text"
           class="form-control"
@@ -17,13 +17,12 @@
           name="id"
           formControlName="id"
           readonly
-          disabled
         />
       </div>
 
       <!-- Login -->
       <div class="mb-3">
-        <label class="form-label" for="field_login" jhiTranslate="userManagement.login">Login</label>
+        <label class="form-label" for="field_login" itpTranslate="userManagement.login">Login</label>
         <input
           type="text"
           class="form-control"
@@ -32,18 +31,18 @@
           formControlName="login"
         />
         <div *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.required" jhiTranslate="entity.validation.required">
+          <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.required" itpTranslate="entity.validation.required">
             This field is required.
           </small>
           <small
             class="form-text text-danger"
             *ngIf="editForm.get('login')?.errors?.maxlength"
-            jhiTranslate="entity.validation.maxlength"
+            itpTranslate="entity.validation.maxlength"
             [translateValues]="{ max: 50 }"
           >
             This field cannot be longer than 50 characters.
           </small>
-          <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.pattern" jhiTranslate="entity.validation.patternLogin">
+          <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.pattern" itpTranslate="entity.validation.patternLogin">
             This field can only contain letters, digits and e-mail addresses.
           </small>
         </div>
@@ -51,7 +50,7 @@
 
       <!-- First name -->
       <div class="mb-3">
-        <label class="form-label" for="field_firstName" jhiTranslate="userManagement.firstName">First name</label>
+        <label class="form-label" for="field_firstName" itpTranslate="userManagement.firstName">First name</label>
         <input
           type="text"
           class="form-control"
@@ -59,11 +58,11 @@
           name="firstName"
           formControlName="firstName"
         />
-        <div *ngIf="editForm.get('firstName')!.invalid (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
+        <div *ngIf="editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
           <small
             class="form-text text-danger"
             *ngIf="editForm.get('firstName')?.errors?.maxlength"
-            jhiTranslate="entity.validation.maxlength"
+            itpTranslate="entity.validation.maxlength"
             [translateValues]="{ max: 50 }"
           >
             This field cannot be longer than 50 characters.
@@ -71,9 +70,9 @@
         </div>
       </div>
 
-      <!-- Last name (corrigé) -->
+      <!-- Last name -->
       <div class="mb-3">
-        <label class="form-label" for="field_lastName" jhiTranslate="userManagement.lastName">Last name</label>
+        <label class="form-label" for="field_lastName" itpTranslate="userManagement.lastName">Last name</label>
         <input
           type="text"
           class="form-control"
@@ -81,11 +80,11 @@
           name="lastName"
           formControlName="lastName"
         />
-        <div *ngIf="editForm.get('lastName')!.invalid (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
+        <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
           <small
             class="form-text text-danger"
             *ngIf="editForm.get('lastName')?.errors?.maxlength"
-            jhiTranslate="entity.validation.maxlength"
+            itpTranslate="entity.validation.maxlength"
             [translateValues]="{ max: 50 }"
           >
             This field cannot be longer than 50 characters.
@@ -95,7 +94,7 @@
 
       <!-- Email -->
       <div class="mb-3">
-        <label class="form-label" for="field_email" jhiTranslate="userManagement.email">Email</label>
+        <label class="form-label" for="field_email" itpTranslate="userManagement.email">Email</label>
         <input
           type="email"
           class="form-control"
@@ -103,14 +102,14 @@
           name="email"
           formControlName="email"
         />
-        <div *ngIf="editForm.get('email')!.invalid (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
+        <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" itpTranslate="entity.validation.required">
             This field is required.
           </small>
           <small
             class="form-text text-danger"
             *ngIf="editForm.get('email')?.errors?.maxlength"
-            jhiTranslate="entity.validation.maxlength"
+            itpTranslate="entity.validation.maxlength"
             [translateValues]="{ max: 100 }"
           >
             This field cannot be longer than 100 characters.
@@ -118,7 +117,7 @@
           <small
             class="form-text text-danger"
             *ngIf="editForm.get('email')?.errors?.minlength"
-            jhiTranslate="entity.validation.minlength"
+            itpTranslate="entity.validation.minlength"
             [translateValues]="{ min: 5 }"
           >
             This field is required to be at least 5 characters.
@@ -126,7 +125,7 @@
           <small
             class="form-text text-danger"
             *ngIf="editForm.get('email')?.errors?.email"
-            jhiTranslate="global.messages.validate.email.invalid"
+            itpTranslate="global.messages.validate.email.invalid"
           >
             Your email is invalid.
           </small>
@@ -141,16 +140,16 @@
           id="field_activated"
           name="activated"
           formControlName="activated"
-          [disabled]="editForm.get('id')?.value === null"
+          [attr.disabled]="editForm.value.id === undefined ? 'disabled' : null"
         />
-        <label class="form-check-label" for="field_activated" jhiTranslate="userManagement.activated">
+        <label class="form-check-label" for="field_activated" itpTranslate="userManagement.activated">
           Activated
         </label>
       </div>
 
       <!-- Language -->
       <div class="mb-3" *ngIf="languages && languages.length > 0">
-        <label class="form-label" for="field_langKey" jhiTranslate="userManagement.langKey">Language</label>
+        <label class="form-label" for="field_langKey" itpTranslate="userManagement.langKey">Language</label>
         <select class="form-select" id="field_langKey" name="langKey" formControlName="langKey">
           <option *ngFor="let language of languages" [value]="language">
             {{ language | findLanguageFromKey }}
@@ -158,9 +157,9 @@
         </select>
       </div>
 
-      <!-- Profiles / Authorities -->
+      <!-- Profiles -->
       <div class="mb-3">
-        <label class="form-label" for="field_authorities" jhiTranslate="userManagement.profiles">Profiles</label>
+        <label class="form-label" for="field_authorities" itpTranslate="userManagement.profiles">Profiles</label>
         <select
           class="form-select"
           multiple
@@ -178,7 +177,7 @@
       <div class="mt-4">
         <button type="button" class="btn btn-secondary me-2" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;
-          <span jhiTranslate="entity.action.cancel">Cancel</span>
+          <span itpTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -187,7 +186,7 @@
           class="btn btn-primary"
         >
           <fa-icon icon="save"></fa-icon>&nbsp;
-          <span jhiTranslate="entity.action.save">Save</span>
+          <span itpTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>
