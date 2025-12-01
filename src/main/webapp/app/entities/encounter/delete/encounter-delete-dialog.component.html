@@ -1,9 +1,16 @@
 <form *ngIf="encounter" name="deleteForm" (ngSubmit)="confirmDelete(encounter.id!)">
   <div class="modal-header">
-    <h4 class="modal-title" data-cy="encounterDeleteDialogHeading" itpTranslate="entity.delete.title">Confirm delete operation</h4>
-
-    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
-  </div>
+  <h4 class="modal-title" data-cy="encounterDeleteDialogHeading" itpTranslate="entity.delete.title">
+    Confirm delete operation
+  </h4>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="modal"
+    aria-label="Close"
+    (click)="cancel()"
+  ></button>
+</div>
 
   <div class="modal-body">
     <itp-alert-error></itp-alert-error>
