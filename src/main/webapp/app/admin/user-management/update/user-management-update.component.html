@@ -1,194 +1,88 @@
-<div class="d-flex justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="myUserLabel" jhiTranslate="userManagement.home.createOrEditLabel">
-        Create or edit a user
-      </h2>
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
-      <jhi-alert-error></jhi-alert-error>
+import { LANGUAGES } from 'app/config/language.constants';
+import { IUser } from '../user-management.model';
+import { UserManagementService } from '../service/user-management.service';
 
-      <div class="mb-3" [hidden]="!editForm.get('id')?.value">
-        <label class="form-label" for="field_id" jhiTranslate="global.field.id">ID</label>
-        <input
-          type="text"
-          class="form-control"
-          name="id"
-          id="field_id"
-          formControlName="id"
-          readonly
-          disabled
-        />
-      </div>
+const userTemplate = {} as IUser;
 
-      Login
-      <div class="mb-3">
-        <label class="form-label" for="field_login" jhiTranslate="userManagement.login">Login</label>
-        <input
-          type="text"
-          class="form-control"
-          name="login"
-          id="field_login"
-          formControlName="login"
-        />
-        <div *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
-          </small>
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get('login')?.errors?.maxlength"
-            jhiTranslate="entity.validation.maxlength"
-            [translateValues]="{ max: 50 }"
-          >
-            This field cannot be longer than 50 characters.
-          </small>
-          <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.pattern" jhiTranslate="entity.validation.patternLogin">
-            This field can only contain letters, digits and e-mail addresses.
-          </small>
-        </div>
-      </div>
+const newUser: IUser = {
+  langKey: 'en',
+  activated: true,
+} as IUser;
 
-      First name
-      <div class="mb-3">
-        <label class="form-label" for="field_firstName" jhiTranslate="userManagement.firstName">First name</label>
-        <input
-          type="text"
-          class="form-control"
-          name="firstName"
-          id="field_firstName"
-          formControlName="firstName"
-        />
-        <div *ngIf="editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get('firstName')?.errors?.maxlength"
-            jhiTranslate="entity.validation.maxlength"
-            [translateValues]="{ max: 50 }"
-          >
-            This field cannot be longer than 50 characters.
-          </small>
-        </div>
-      </div>
+@Component({
+  selector: 'itp-user-mgmt-update',
+  templateUrl: './user-management-update.component.html',
+})
+export class UserManagementUpdateComponent implements OnInit {
+  languages = LANGUAGES;
+  authorities: string[] = [];
+  isSaving = false;
 
-      Last name (celui qui déclenchait l’erreur Sonar)
-      <div class="mb-3">
-        <label class="form-label" for="field_lastName" jhiTranslate="userManagement.lastName">Last name</label>
-        <input
-          type="text"
-          class="form-control"
-          name="lastName"
-          id="field_lastName"
-          formControlName="lastName"
-        />
-        <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get('lastName')?.errors?.maxlength"
-            jhiTranslate="entity.validation.maxlength"
-            [translateValues]="{ max: 50 }"
-          >
-            This field cannot be longer than 50 characters.
-          </small>
-        </div>
-      </div>
+  editForm = new FormGroup({
+    id: new FormControl(userTemplate.id),
+    login: new FormControl(userTemplate.login, {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(50),
+        Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
+      ],
+    }),
+    firstName: new FormControl(userTemplate.firstName, { validators: [Validators.maxLength(50)] }),
+    lastName: new FormControl(userTemplate.lastName, { validators: [Validators.maxLength(50)] }),
+    email: new FormControl(userTemplate.email, {
+      nonNullable: true,
+      validators: [Validators.minLength(5), Validators.maxLength(254), Validators.email],
+    }),
+    activated: new FormControl(userTemplate.activated, { nonNullable: true }),
+    langKey: new FormControl(userTemplate.langKey, { nonNullable: true }),
+    authorities: new FormControl(userTemplate.authorities, { nonNullable: true }),
+  });
 
-      Email
-      <div class="mb-3">
-        <label class="form-label" for="field_email" jhiTranslate="userManagement.email">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          name="email"
-          id="field_email"
-          formControlName="email"
-        />
-        <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
-          </small>
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get('email')?.errors?.maxlength"
-            jhiTranslate="entity.validation.maxlength"
-            [translateValues]="{ max: 100 }"
-          >
-            This field cannot be longer than 100 characters.
-          </small>
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get('email')?.errors?.minlength"
-            jhiTranslate="entity.validation.minlength"
-            [translateValues]="{ min: 5 }"
-          >
-            This field is required to be at least 5 characters.
-          </small>
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get('email')?.errors?.email"
-            jhiTranslate="global.messages.validate.email.invalid"
-          >
-            Your email is invalid.
-          </small>
-        </div>
-      </div>
+  constructor(private userService: UserManagementService, private route: ActivatedRoute) {}
 
-      Activated checkbox
-      <div class="form-check mb-3">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="field_activated"
-          name="activated"
-          formControlName="activated"
-          [disabled]="editForm.get('id')?.value === null"
-        />
-        <label class="form-check-label" for="field_activated" jhiTranslate="userManagement.activated">
-          Activated
-        </label>
-      </div>
+  ngOnInit(): void {
+    this.route.data.subscribe(({ user }) => {
+      if (user) {
+        this.editForm.reset(user);
+      } else {
+        this.editForm.reset(newUser);
+      }
+    });
+    this.userService.authorities().subscribe(authorities => (this.authorities = authorities));
+  }
 
-      Language
-      <div class="mb-3" *ngIf="languages && languages.length > 0">
-        <label class="form-label" for="field_langKey" jhiTranslate="userManagement.langKey">Language</label>
-        <select class="form-select" id="field_langKey" name="langKey" formControlName="langKey">
-          <option *ngFor="let language of languages" [value]="language">
-            {{ language | findLanguageFromKey }}
-          </option>
-        </select>
-      </div>
+  previousState(): void {
+    window.history.back();
+  }
 
-      Authorities / Profiles
-      <div class="mb-3">
-        <label class="form-label" for="field_authorities" jhiTranslate="userManagement.profiles">Profiles</label>
-        <select
-          class="form-select"
-          multiple
-          id="field_authorities"
-          name="authority"
-          formControlName="authorities"
-        >
-          <option *ngFor="let authority of authorities" [value]="authority">
-            {{ authority }}
-          </option>
-        </select>
-      </div>
+  save(): void {
+    this.isSaving = true;
+    const user = this.editForm.getRawValue();
+    if (user.id !== null) {
+      this.userService.update(user).subscribe({
+        next: () => this.onSaveSuccess(),
+        error: () => this.onSaveError(),
+      });
+    } else {
+      this.userService.create(user).subscribe({
+        next: () => this.onSaveSuccess(),
+        error: () => this.onSaveError(),
+      });
+    }
+  }
 
-      Buttons
-      <div class="mt-4">
-        <button type="button" class="btn btn-secondary me-2" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;
-          <span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
+  private onSaveSuccess(): void {
+    this.isSaving = false;
+    this.previousState();
+  }
 
-        <button
-          type="submit"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;
-          <span jhiTranslate="entity.action.save">Save</span>
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
+  private onSaveError(): void {
+    this.isSaving = false;
+  }
+}
