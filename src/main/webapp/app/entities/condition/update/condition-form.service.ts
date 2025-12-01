@@ -27,22 +27,26 @@ export type ConditionFormGroup = FormGroup<ConditionFormGroupContent>;
 
 @Injectable({ providedIn: 'root' })
 export class ConditionFormService {
-  createConditionFormGroup(condition: ConditionFormGroupInput = { id: null }): ConditionFormGroup {
-    const conditionRawValue = {
-      ...this.getFormDefaults(),
-      ...condition,
-    };
+  createConditionFormGroup(condition?: ConditionFormGroupInput): ConditionFormGroup {
+    // Destructuration avec valeurs par défaut individuelles → règle Sonar respectée
+    const {
+      id = null,
+      conditionText = null,
+      conditionOnsetDates = null,
+      patientUID = null,
+    } = condition ?? {};
+
     return new FormGroup<ConditionFormGroupContent>({
       id: new FormControl(
-        { value: conditionRawValue.id, disabled: true },
+        { value: id, disabled: true },
         {
           nonNullable: true,
           validators: [Validators.required],
         }
       ),
-      conditionText: new FormControl(conditionRawValue.conditionText),
-      conditionOnsetDates: new FormControl(conditionRawValue.conditionOnsetDates),
-      patientUID: new FormControl(conditionRawValue.patientUID),
+      conditionText: new FormControl(conditionText),
+      conditionOnsetDates: new FormControl(conditionOnsetDates),
+      patientUID: new FormControl(patientUID),
     });
   }
 
@@ -50,19 +54,21 @@ export class ConditionFormService {
     return form.getRawValue() as ICondition | NewCondition;
   }
 
-  resetForm(form: ConditionFormGroup, condition: ConditionFormGroupInput): void {
-    const conditionRawValue = { ...this.getFormDefaults(), ...condition };
-    form.reset(
-      {
-        ...conditionRawValue,
-        id: { value: conditionRawValue.id, disabled: true },
-      } as any /* cast to workaround https://github.com/angular/angular/issues/46458 */
-    );
+  resetForm(form: ConditionFormGroup, condition?: ConditionFormGroupInput): void {
+    const {
+      id = null,
+      conditionText = null,
+      conditionOnsetDates = null,
+      patientUID = null,
+    } = condition ?? {};
+
+    form.reset({
+      id: { value: id, disabled: true },
+      conditionText,
+      conditionOnsetDates,
+      patientUID,
+    } as any); // cast conservé pour workaround Angular connu
   }
 
-  private getFormDefaults(): ConditionFormDefaults {
-    return {
-      id: null,
-    };
-  }
+  // Plus besoin de getFormDefaults() → tout est géré par la destructuration
 }
