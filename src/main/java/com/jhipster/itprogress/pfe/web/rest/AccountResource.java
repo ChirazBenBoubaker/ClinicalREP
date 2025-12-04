@@ -85,11 +85,14 @@ public class AccountResource {
      * @param request the HTTP request.
      * @return the login if the user is authenticated.
      */
-    @GetMapping("/authenticate")
-    public String isAuthenticated(HttpServletRequest request) {
-        log.debug("REST request to check if the current user is authenticated");
-        return request.getRemoteUser();
+@RestController
+public class ApiController {
+
+    @GetMapping(value = "/endpoint", produces = "text/plain")
+    public String endpoint(@RequestParam("input") String input) {
+        return input;
     }
+}
 
     /**
      * {@code GET  /account} : get the current user.
