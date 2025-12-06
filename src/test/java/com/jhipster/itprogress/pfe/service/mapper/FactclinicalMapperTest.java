@@ -30,12 +30,12 @@ class FactclinicalMapperTest {
     @Test
     void shouldMapDtoToEntity() {
         FactclinicalDTO dto = new FactclinicalDTO();
-        dto.setId(99L);
+        dto.setId(2L);
 
         Factclinical entity = factclinicalMapper.toEntity(dto);
 
         assertThat(entity).isNotNull();
-        assertThat(entity.getId()).isEqualTo(99L);
+        assertThat(entity.getId()).isEqualTo(2L);
     }
 
     @Test
