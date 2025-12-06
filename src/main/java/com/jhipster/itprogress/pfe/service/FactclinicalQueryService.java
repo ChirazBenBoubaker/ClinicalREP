@@ -7,6 +7,7 @@ import com.jhipster.itprogress.pfe.service.criteria.FactclinicalCriteria;
 import com.jhipster.itprogress.pfe.service.dto.FactclinicalDTO;
 import com.jhipster.itprogress.pfe.service.mapper.FactclinicalMapper;
 import java.util.List;
+import java.util.function.Function;
 import javax.persistence.criteria.JoinType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
