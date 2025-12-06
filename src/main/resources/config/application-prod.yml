@@ -35,7 +35,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/Clinical
     username: postgres
-    password: Helloworld;
+    password: ${DB_PASSWORD}
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -101,8 +101,8 @@ jhipster:
         # - In the JHipster Registry (which includes a Spring Cloud Config server)
         # - In a separate `application-prod.yml` file, in the same folder as your executable JAR file
         # - In the `JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET` environment variable
-        base64-secret: N2VjNDgwOWY4MTg1Y2M0YWYyMWRkM2Y1NmFjZWU3YWYzN2QwYjA5MTUxZmY5N2QzMjYwN2E4OTBiODU1MzAyM2VhOGQ5NGNlNzljOGI0M2RiNjgzODVmOWE1ZWQwNzRjYzUwZTYzZTcyOWI3M2JjMjhkZTM5MDRmNzExNzViOWE=
         # Token is valid 24 hours
+        base64-secret: ${JWT_SECRET}
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
