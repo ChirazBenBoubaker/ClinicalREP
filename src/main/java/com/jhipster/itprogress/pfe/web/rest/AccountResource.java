@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 /**
@@ -88,10 +90,16 @@ public class AccountResource {
      */
 
 
-@GetMapping("/authenticate")
-public String isAuthenticated(HttpServletRequest request) {
-    return request.getRemoteUser();
-}
+
+    @GetMapping("/authenticate")
+    public String isAuthenticated(HttpServletRequest request) {
+        String remoteUser = request.getRemoteUser();
+        if (remoteUser == null) {
+            return ""; // or "anonymous", or null as appropriate
+        }
+        // HTML-escape the username to prevent XSS
+        return HtmlUtils.htmlEscape(remoteUser);
+    }
 
 
 
