@@ -17,48 +17,34 @@ class ConditionMapperTest {
     }
 
     @Test
-    void shouldMapEntityToDto() {
-        // given
+    void entityWithIdShouldBeMappedToDtoWithSameId() {
         Condition entity = new Condition();
-        entity.setId(1L);
-        // Mette ici TOUS les champs qui existent vraiment dans ton entité Condition
-        // Exemples très fréquents dans les projets JHipster :
-        // entity.setName("Fever");
-        // entity.setSeverity("HIGH");
-        // entity.setCreatedDate(Instant.now());
-        // etc.
+        entity.setId(999L);
 
-        // when
         ConditionDTO dto = conditionMapper.toDto(entity);
 
-        // then
         assertThat(dto).isNotNull();
-        assertThat(dto.getId()).isEqualTo(1L);
-        // Ajoute les asserts correspondants aux champs que tu as remplis ci-dessus
+        assertThat(dto.getId()).isEqualTo(999L);
     }
 
     @Test
-    void shouldMapDtoToEntity() {
-        // given
+    void dtoWithIdShouldBeMappedToEntityWithSameId() {
         ConditionDTO dto = new ConditionDTO();
-        dto.setId(2L);
-        // même chose : remplis avec les vrais setters du DTO
+        dto.setId(777L);
 
-        // when
         Condition entity = conditionMapper.toEntity(dto);
 
-        // then
         assertThat(entity).isNotNull();
-        assertThat(entity.getId()).isEqualTo(2L);
+        assertThat(entity.getId()).isEqualTo(777L);
     }
 
     @Test
-    void shouldHandleNullEntity() {
+    void nullEntityShouldReturnNullDto() {
         assertThat(conditionMapper.toDto(null)).isNull();
     }
 
     @Test
-    void shouldHandleNullDto() {
+    void nullDtoShouldReturnNullEntity() {
         assertThat(conditionMapper.toEntity(null)).isNull();
     }
 }
