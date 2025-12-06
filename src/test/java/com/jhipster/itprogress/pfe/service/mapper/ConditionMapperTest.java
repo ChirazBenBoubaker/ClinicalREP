@@ -17,34 +17,34 @@ class ConditionMapperTest {
     }
 
     @Test
-    void entityWithIdShouldBeMappedToDtoWithSameId() {
+    void shouldMapEntityToDto() {
         Condition entity = new Condition();
-        entity.setId(999L);
+        entity.setId(1L);
 
         ConditionDTO dto = conditionMapper.toDto(entity);
 
         assertThat(dto).isNotNull();
-        assertThat(dto.getId()).isEqualTo(999L);
+        assertThat(dto.getId()).isEqualTo(1L);
     }
 
     @Test
-    void dtoWithIdShouldBeMappedToEntityWithSameId() {
+    void shouldMapDtoToEntity() {
         ConditionDTO dto = new ConditionDTO();
-        dto.setId(777L);
+        dto.setId(2L);
 
         Condition entity = conditionMapper.toEntity(dto);
 
         assertThat(entity).isNotNull();
-        assertThat(entity.getId()).isEqualTo(777L);
+        assertThat(entity.getId()).isEqualTo(2L);
     }
 
     @Test
-    void nullEntityShouldReturnNullDto() {
+    void shouldReturnNullWhenEntityIsNull() {
         assertThat(conditionMapper.toDto(null)).isNull();
     }
 
     @Test
-    void nullDtoShouldReturnNullEntity() {
+    void shouldReturnNullWhenDtoIsNull() {
         assertThat(conditionMapper.toEntity(null)).isNull();
     }
 }
