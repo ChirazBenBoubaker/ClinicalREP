@@ -26,6 +26,8 @@ file_env() {
     fi
 
     unset "$fileVar"
+    return 0
+    
 }
 
 file_env 'SPRING_DATASOURCE_URL'
