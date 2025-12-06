@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import java.security.Principal;
+import org.springframework.http.MediaType;
 
 /**
  * REST controller for managing the current user's account.
@@ -85,11 +87,14 @@ public class AccountResource {
      * @param request the HTTP request.
      * @return the login if the user is authenticated.
      */
+
+
 @GetMapping(value = "/authenticate", produces = MediaType.TEXT_PLAIN_VALUE)
 public String isAuthenticated(Principal principal) {
     log.debug("REST request to check if the current user is authenticated");
     return principal != null ? principal.getName() : "";
 }
+
 
     /**
      * {@code GET  /account} : get the current user.
