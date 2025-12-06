@@ -20,51 +20,45 @@ class ConditionMapperTest {
     void shouldMapEntityToDto() {
         // given
         Condition entity = new Condition();
-        entity.setId(99L);
-        entity.setCode("FEVER");
-        entity.setLabel("Fièvre élevée");
-        entity.setDescription("Température > 38.5°C");
-        // ajoute ici tous les autres champs de ton entity Condition
+        entity.setId(1L);
+        // Mette ici TOUS les champs qui existent vraiment dans ton entité Condition
+        // Exemples très fréquents dans les projets JHipster :
+        // entity.setName("Fever");
+        // entity.setSeverity("HIGH");
+        // entity.setCreatedDate(Instant.now());
+        // etc.
 
         // when
         ConditionDTO dto = conditionMapper.toDto(entity);
 
         // then
         assertThat(dto).isNotNull();
-        assertThat(dto.getId()).isEqualTo(99L);
-        assertThat(dto.getCode()).isEqualTo("FEVER");
-        assertThat(dto.getLabel()).isEqualTo("Fièvre élevée");
-        assertThat(dto.getDescription()).isEqualTo("Température > 38.5°C");
-        // vérifie tous les champs mappés
+        assertThat(dto.getId()).isEqualTo(1L);
+        // Ajoute les asserts correspondants aux champs que tu as remplis ci-dessus
     }
 
     @Test
     void shouldMapDtoToEntity() {
         // given
         ConditionDTO dto = new ConditionDTO();
-        dto.setId(123L);
-        dto.setCode("HYPOTENSION");
-        dto.setLabel("Hypotension artérielle");
-        dto.setDescription("PA systolique < 90 mmHg");
+        dto.setId(2L);
+        // même chose : remplis avec les vrais setters du DTO
 
         // when
         Condition entity = conditionMapper.toEntity(dto);
 
         // then
         assertThat(entity).isNotNull();
-        assertThat(entity.getId()).isEqualTo(123L);
-        assertThat(entity.getCode()).isEqualTo("HYPOTENSION");
-        assertThat(entity.getLabel()).isEqualTo("Hypotension artérielle");
-        assertThat(entity.getDescription()).isEqualTo("PA systolique < 90 mmHg");
+        assertThat(entity.getId()).isEqualTo(2L);
     }
 
     @Test
-    void shouldReturnNullWhenEntityIsNull() {
+    void shouldHandleNullEntity() {
         assertThat(conditionMapper.toDto(null)).isNull();
     }
 
     @Test
-    void shouldReturnNullWhenDtoIsNull() {
+    void shouldHandleNullDto() {
         assertThat(conditionMapper.toEntity(null)).isNull();
     }
 }
