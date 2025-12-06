@@ -87,9 +87,10 @@ public class AccountResource {
      */
      @GetMapping("/authenticate")
      public String isAuthenticated(HttpServletRequest request) {
-        log.debug("REST request to check if the current user is authenticated");
-        return request.getRemoteUser();  // returned as plain text → safe from XSS
-        }
+    log.debug("REST request to check if the current user is authenticated");
+    String user = request.getRemoteUser();
+    return user != null ? user : "";
+}
 
     /**
      * {@code GET  /account} : get the current user.
