@@ -74,47 +74,63 @@ public class FactclinicalQueryService extends QueryService<Factclinical> {
         final Specification<Factclinical> specification = createSpecification(criteria);
         return factclinicalRepository.count(specification);
     }
-
     /**
      * Function to convert {@link FactclinicalCriteria} to a {@link Specification}
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching {@link Specification} of the entity.
      */
     protected Specification<Factclinical> createSpecification(FactclinicalCriteria criteria) {
-        Specification<Factclinical> specification = Specification.where(null);
-        if (criteria != null) {
-            // This has to be called first, because the distinct method returns null
-            if (criteria.getDistinct() != null) {
-                specification = specification.and(distinct(criteria.getDistinct()));
-            }
-            if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Factclinical_.id));
-            }
-            if (criteria.getPatientUID() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getPatientUID(), Factclinical_.patientUID));
-            }
-            if (criteria.getEncounterID() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getEncounterID(), Factclinical_.encounterID));
-            }
-            if (criteria.getObservationID() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getObservationID(), Factclinical_.observationID));
-            }
-            if (criteria.getProcedureID() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getProcedureID(), Factclinical_.procedureID));
-            }
-            if (criteria.getImmunizationID() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getImmunizationID(), Factclinical_.immunizationID));
-            }
-            if (criteria.getMedicationID() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getMedicationID(), Factclinical_.medicationID));
-            }
-            if (criteria.getConditionID() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getConditionID(), Factclinical_.conditionID));
-            }
-            if (criteria.getDate() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDate(), Factclinical_.date));
-            }
+        if (criteria == null) {
+            return Specification.where(null);
         }
+
+        Specification<Factclinical> specification = Specification.where(null);
+
+        // distinct doit être appliqué en premier (comportement JHipster)
+        if (criteria.getDistinct() != null) {
+            specification = specification.and(distinct(criteria.getDistinct()));
+        }
+
+        // Ajout conditionnel de chaque critère via un helper → réduit fortement la complexité cognitive
+        specification = addIfPresent(specification, criteria.getId(),
+                id -> buildRangeSpecification(id, Factclinical_.id));
+
+        specification = addIfPresent(specification, criteria.getPatientUID(),
+                uid -> buildStringSpecification(uid, Factclinical_.patientUID));
+
+        specification = addIfPresent(specification, criteria.getEncounterID(),
+                id -> buildRangeSpecification(id, Factclinical_.encounterID));
+
+        specification = addIfPresent(specification, criteria.getObservationID(),
+                id -> buildRangeSpecification(id, Factclinical_.observationID));
+
+        specification = addIfPresent(specification, criteria.getProcedureID(),
+                id -> buildRangeSpecification(id, Factclinical_.procedureID));
+
+        specification = addIfPresent(specification, criteria.getImmunizationID(),
+                id -> buildRangeSpecification(id, Factclinical_.immunizationID));
+
+        specification = addIfPresent(specification, criteria.getMedicationID(),
+                id -> buildRangeSpecification(id, Factclinical_.medicationID));
+
+        specification = addIfPresent(specification, criteria.getConditionID(),
+                id -> buildRangeSpecification(id, Factclinical_.conditionID));
+
+        specification = addIfPresent(specification, criteria.getDate(),
+                date -> buildRangeSpecification(date, Factclinical_.date));
+
         return specification;
+    }
+
+    /**
+     * Méthode utilitaire générique pour ajouter une specification seulement si le critère est non null.
+     * Chaque appel ne compte que comme +1 en complexité cognitive (au lieu de +2 pour un if + and).
+     */
+    private <T> Specification<Factclinical> addIfPresent(
+            Specification<Factclinical> spec,
+            T criterion,
+            Function<T, Specification<Factclinical>> builder) {
+
+        return criterion != null ? spec.and(builder.apply(criterion)) : spec;
     }
 }
