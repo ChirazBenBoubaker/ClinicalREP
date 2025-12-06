@@ -18,10 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import java.security.Principal;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 /**
  * REST controller for managing the current user's account.
@@ -91,19 +88,11 @@ public class AccountResource {
      */
 
 
-@RestController
-public class AccountResource {
-
-    @GetMapping(value = "/authenticate", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String isAuthenticated(Principal principal) {
-        // Debug logging
-        log.debug("REST request to check if the current user is authenticated");
-
-        // If Principal is null (unauthenticated), return empty string
-        // Otherwise return the username (mock user 'test' in JHipster tests)
-        return principal != null ? principal.getName() : "";
-    }
+@GetMapping("/authenticate")
+public String isAuthenticated(HttpServletRequest request) {
+    return request.getRemoteUser();
 }
+
 
 
     /**
